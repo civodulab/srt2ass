@@ -1,0 +1,44 @@
+{
+    "scriptInfo": {
+        "intro": "This is an Advanced Sub Station Alpha v4 , script.",
+        "Title": "untitled",
+        "ScriptType": "v4.00+",
+        "Collisions": "Normal",
+        "PlayDepth": 0,
+        "PlayResX": "",
+        "PlayResY": "",
+        "WrapStyle": 2,
+        "ScaledBorderAndShadow": "No"
+    },
+    "v4Styles": [
+         {
+            "Format": "Style",
+            "Name": "Default",
+            "Fontname": "Arial",
+            "Fontsize": 20,
+            "PrimaryColour": "&H00FFFFFF",
+            "SecondaryColour": "&H0300FFFF",
+            "OutlineColour": "&H00000000",
+            "BackColour": "&H02000000",
+            "Bold": 0,
+            "Italic": 0,
+            "Underline": 0,
+            "StrikeOut": 0,
+            "ScaleX": 100,
+            "ScaleY": 100,
+            "Spacing": 0,
+            "Angle": 0,
+            "BorderStyle": 1,
+            "Outline": 2,
+            "Shadow": 1,
+            "Alignment": 2,
+            "MarginL": 10,
+            "MarginR": 10,
+            "MarginV": 10,
+            "Encoding": 1
+        }
+    ],
+    "optionsDialogues":{
+        "defaultStyle": "Default"
+    }
+}

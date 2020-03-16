@@ -1,0 +1,24 @@
+{
+  "name": "srt2ass",
+  "version": "1.0.9",
+  "description": "Transforme SRT en ASS",
+  "bin": {
+    "srt2ass": "bin/srt2ass.js"
+  },
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ludovic Bal",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "optionator": "^0.8.3",
+    "subtitle": "^2.0.3"
+  },
+  "keywords": [
+    "ass",
+    "subtitle",
+    "srt"
+  ]
+}
