@@ -21,19 +21,30 @@ $ npm install -g srt2ass
 Utilisation :
 
 ```
-$ srt2ass file_in.srt [file_out.ass]
+$ srt2ass [options] file_in.srt [file_out.ass]
 ```
 
-file_out optionnel. S'il n'exite pas il prendra le même nom que file_in.
+- `file_out` optionnel. S'il n'exite pas il prendra le même nom que file_in.
+- `[options]` : cf. ci-dessous
 
 ## Configuration
+
+### --init [file]
+
+```
+$ srt2ass --init realivePath/file.ass
+```
+
+- Va générér / modifier le fichier `.srt2assrc` dans le dossier en cours en prenant les paramètres et les styles du fichier `file.ass`. Si `.srt2assrc` existe il gardera les valeurs de `optionsDialogues`.
+
+
+### Manuelle
 
 Si vous voulez paramétrer le fichier ass, créer le fichier `.srt2assrc` à la racine du répertoire avec les paramètres suivants :
 
 ```json
 {
     "scriptInfo": {
-        "intro": "This is an Advanced Sub Station Alpha v4 , script.",
         "Title": "untitled",
         "ScriptType": "v4.00+",
         "Collisions": "Normal",
@@ -45,7 +56,6 @@ Si vous voulez paramétrer le fichier ass, créer le fichier `.srt2assrc` à la 
     },
     "v4Styles": [
          {
-            "Format": "Style",
             "Name": "Default",
             "Fontname": "Arial",
             "Fontsize": 20,
@@ -77,4 +87,4 @@ Si vous voulez paramétrer le fichier ass, créer le fichier `.srt2assrc` à la 
 }
 ```
 
-Vous pouvez ajouter autant de style que vous voulez dans `v4Style`
+Vous pouvez ajouter autant de style que vous voulez dans `v4Style`.

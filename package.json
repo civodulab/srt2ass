@@ -9,9 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://github.com/civodulab/srt2ass",
   "author": "Ludovic Bal",
   "license": "ISC",
   "dependencies": {
+    "ass-compiler": "0.0.11",
     "colors": "^1.4.0",
     "optionator": "^0.8.3",
     "subtitle": "^2.0.3"
