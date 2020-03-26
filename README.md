@@ -21,15 +21,26 @@ $ npm install -g srt2ass
 Utilisation :
 
 ```
-$ srt2ass [options] file_in.srt [file_out.ass]
+$ srt2ass file_in.srt [file_out.ass]
 ```
 
-- `file_out` optionnel. S'il n'exite pas il prendra le même nom que file_in.
-- `[options]` : cf. ci-dessous
+- `file_out` optionnel. S'il n'existe pas il prendra le même nom que file_in.
+
+Options :
+
+```
+Basic:
+  -h, --help     displays help
+  -v, --version  Output the version number
+
+Options:
+  --init String  Creates the config file .srt2assrc
+  -d, --dir      Process all the srt files in the directory
+```
 
 ## Configuration
 
-### --init [file]
+### srt2ass --init [file]
 
 ```
 $ srt2ass --init realivePath/file.ass

@@ -27,6 +27,12 @@ module.exports = optionator({
       type: "String",
       description: "Creates the config file .srt2assrc",
       example: "srt2ass --init test.ass"
+    },
+    {
+      option: "dir",
+      alias: "d",
+      type: "Boolean",
+      description: "Process all the srt files in the directory"
     }
   ]
 });

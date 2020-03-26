@@ -49,7 +49,7 @@ module.exports = {
       base: ".srt2assrc"
     });
     // _writeInit(assfile);
-    fs.writeFileSync(rcPath, JSON.stringify(_writeInit(assfile)), "utf8");
+    fs.writeFileSync(rcPath, JSON.stringify(_writeInit(assfile),null,2), "utf8");
     monLog.log("ass2vtt", rcPath, "généré");
   },
   recupProcessArgv: function(argv) {
