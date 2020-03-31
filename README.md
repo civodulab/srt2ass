@@ -1,5 +1,8 @@
 # srt2ass
 
+![npm](https://img.shields.io/npm/v/srt2ass)
+![npm](https://img.shields.io/npm/dt/srt2ass)
+
 srt2ass est un outil permettant de transformer un document srt (SubRip) en ass (Advanced Sub Station).
 
 ## Installation and Usage
