@@ -52,7 +52,7 @@ $ srt2ass --init realivePath/file.ass
 - Va générér / modifier le fichier `.srt2assrc` dans le dossier en cours en prenant les paramètres et les styles du fichier `file.ass`. Si `.srt2assrc` existe il gardera les valeurs de `optionsDialogues`.
 
 
-### Manuelle
+### Manuellement
 
 Si vous voulez paramétrer le fichier ass, créer le fichier `.srt2assrc` à la racine du répertoire avec les paramètres suivants :
 
