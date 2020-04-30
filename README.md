@@ -102,3 +102,21 @@ Si vous voulez paramétrer le fichier ass, créer le fichier `.srt2assrc` à la 
 ```
 
 Vous pouvez ajouter autant de style que vous voulez dans `v4Style`.
+
+## Astuce
+
+Si au début de la phrase vous mettez l'acteur entre crochets il sera mis dans le fichier ass dans la colonne `Name`  
+
+```
+fichier srt
+
+1
+00:00:00,000 --> 00:00:02,560
+[actor]Texte sous-titre
+```
+
+```
+fichier ass
+
+Dialogue: 0,0:00:00.00,0:00:02.56,Style,actor,0,0,0,,Texte sous-titre
+```

@@ -90,9 +90,14 @@ function writeFiles(files, file_out) {
     const data = fs.readFileSync(f, "utf8");
     const parse = subtitle.parse(data);
     Object.values(parse).forEach(s => {
+      let actor=["",""];
       let start = mesFunctions.timeASS(subtitle.toVttTime(s.start));
       let end = mesFunctions.timeASS(subtitle.toVttTime(s.end));
       let text = s.text.replace("<br />", "\\N");
+      if(text.trim().substring(0,1)==='['){
+         actor = text.match(/\[([^\]]+)\]/);
+         text=text.replace(actor[0],"");
+      }
       txt_tab.push(
         "Dialogue: 0," +
           start +
@@ -100,7 +105,7 @@ function writeFiles(files, file_out) {
           end +
           "," +
           mesFunctions.options().optionsDialogues.defaultStyle +
-          ",,0,0,0,," +
+          ","+actor[1]+",0,0,0,," +
           text
       );
     });
