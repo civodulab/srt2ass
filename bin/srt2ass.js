@@ -93,7 +93,7 @@ function writeFiles(files, file_out) {
       let actor=["",""];
       let start = mesFunctions.timeASS(subtitle.toVttTime(s.start));
       let end = mesFunctions.timeASS(subtitle.toVttTime(s.end));
-      let text = s.text.replace("<br />", "\\N");
+      let text = s.text.replace(/<br \/>|\n/, "\\N");
       if(text.trim().substring(0,1)==='['){
          actor = text.match(/\[([^\]]+)\]/);
          text=text.replace(actor[0],"");
