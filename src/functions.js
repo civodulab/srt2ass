@@ -18,41 +18,40 @@ function _options() {
   scriptInfo = (srt_config.scriptInfo && srt_config.scriptInfo) || scriptInfo;
   v4Styles = (srt_config.v4Styles && srt_config.v4Styles) || v4Styles;
   optionsDialogues =
-    (srt_config.optionsDialogues && srt_config.optionsDialogues) ||
-    optionsDialogues;
+    (srt_config.optionsDialogues && srt_config.optionsDialogues) || optionsDialogues;
 }
 
 module.exports = {
-  options: function() {
+  options: function () {
     _options();
     return {
       scriptInfo: scriptInfo,
       v4Styles: v4Styles,
-      optionsDialogues: optionsDialogues
+      optionsDialogues: optionsDialogues,
     };
   },
-  timeASS: function(t) {
+  timeASS: function (t) {
     const s = t.split(":");
     t = t.substring(0, 11);
     s && s[0] === "00" && (t = t.substring(1, 11));
     return t;
   },
 
-  writeLigne: function(objet) {
+  writeLigne: function (objet) {
     return "Style:" + Object.values(objet).join(",");
   },
-  init: function(assfile) {
+  init: function (assfile) {
     _options();
     let chemin = process.cwd();
     const rcPath = path.format({
       dir: chemin,
-      base: ".srt2assrc"
+      base: ".srt2assrc",
     });
     // _writeInit(assfile);
-    fs.writeFileSync(rcPath, JSON.stringify(_writeInit(assfile),null,2), "utf8");
+    fs.writeFileSync(rcPath, JSON.stringify(_writeInit(assfile), null, 2), "utf8");
     monLog.log("ass2vtt", rcPath, "généré");
   },
-  recupProcessArgv: function(argv) {
+  recupProcessArgv: function (argv) {
     let erreur = false;
     let file_in = "";
     let file_out = "";
@@ -62,8 +61,14 @@ module.exports = {
         erreur = true;
         break;
       case 1:
-        file_in = argv._[0];
-        file_out = file_in.split(".")[0] + ".ass";
+        file_in = argv._[0].split(".");
+        if (file_in[1] !== "srt") {
+          monLog.error("Le fichier n'est pas un fichier srt.");
+          erreur = true;
+        } else {
+          file_in = argv._[0];
+          file_out = file_in.split(".")[0] + ".ass";
+        }
         break;
       case 2:
         file_in = argv._[0];
@@ -79,19 +84,19 @@ module.exports = {
     return {
       file_in: file_in,
       file_out: file_out,
-      erreur: erreur
+      erreur: erreur,
     };
-  }
+  },
 };
 
 function _writeInit(assfile) {
   const data = fs.readFileSync(assfile, "utf8");
   const parse = compileAss(data);
-  v4Styles = Object.values(parse.styles).map(s => s.style);
+  v4Styles = Object.values(parse.styles).map((s) => s.style);
   scriptInfo = parse.info;
   return {
     scriptInfo: scriptInfo,
     v4Styles: v4Styles,
-    optionsDialogues: optionsDialogues
+    optionsDialogues: optionsDialogues,
   };
 }
