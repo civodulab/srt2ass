@@ -8,6 +8,8 @@ const monLog = require("../src/monLog");
 const optionator = require("../help/options");
 const mesFunctions = require("../src/functions");
 const styles = mesFunctions.options().v4Styles;
+const minGapBetweenSub = mesFunctions.options().optionsDialogues.minGapBetweenSub;
+const defaultStyle=mesFunctions.options().optionsDialogues.defaultStyle
 
 let options;
 try {
@@ -64,6 +66,7 @@ if (options.dir) {
 function writeFiles(files, file_out) {
   files.forEach(f => {
     // ajoute les lignes dans txt_tab
+    let endBefore=0;
     let txt_tab = [];
     let out_file = (file_out && file_out) || f.split(".")[0] + ".ass";
     txt_tab.push("[Script Info]");
@@ -91,6 +94,9 @@ function writeFiles(files, file_out) {
     const parse = subtitle.parse(data);
     Object.values(parse).forEach(s => {
       let actor=["",""];
+       if (s.start - endBefore <= minGapBetweenSub) {
+         s.start = endBefore + minGapBetweenSub;
+       }
       let start = mesFunctions.timeASS(subtitle.toVttTime(s.start));
       let end = mesFunctions.timeASS(subtitle.toVttTime(s.end));
       let text = s.text.replace(/<br \/>|\n/, "\\N");
@@ -98,16 +104,20 @@ function writeFiles(files, file_out) {
          actor = text.match(/\[([^\]]+)\]/);
          text=text.replace(actor[0],"");
       }
+     
       txt_tab.push(
         "Dialogue: 0," +
           start +
           "," +
           end +
           "," +
-          mesFunctions.options().optionsDialogues.defaultStyle +
-          ","+actor[1]+",0,0,0,," +
+          defaultStyle +
+          "," +
+          actor[1] +
+          ",0,0,0,," +
           text
       );
+      endBefore=s.end;
     });
 
     fs.writeFileSync(out_file, txt_tab.join("\n"));

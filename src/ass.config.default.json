@@ -37,6 +37,7 @@
         }
     ],
     "optionsDialogues":{
-        "defaultStyle": "Default"
+        "defaultStyle": "Default",
+        "minGapBetweenSub": 120
     }
 }

@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 let scriptInfo = {};
 let v4Styles = {};
-let optionsDialogues = { defaultStyle: "" };
+let optionsDialogues = { defaultStyle: "", minGapBetweenSub:0 };
 let srt_config;
 
 function _options() {
@@ -13,12 +13,13 @@ function _options() {
     srt_config = srt_config && JSON.parse(srt_config);
   } else {
     srt_config = require("./ass.config.default.json");
-    console.log(srt_config);
+    
   }
   scriptInfo = (srt_config.scriptInfo && srt_config.scriptInfo) || scriptInfo;
   v4Styles = (srt_config.v4Styles && srt_config.v4Styles) || v4Styles;
   optionsDialogues =
     (srt_config.optionsDialogues && srt_config.optionsDialogues) || optionsDialogues;
+ 
 }
 
 module.exports = {

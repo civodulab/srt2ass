@@ -96,12 +96,14 @@ Si vous voulez paramétrer le fichier ass, créer le fichier `.srt2assrc` à la 
         }
     ],
     "optionsDialogues":{
-        "defaultStyle": "Default"
+        "defaultStyle": "Default",
+        "minGapBetweenSub": 120
     }
 }
 ```
 
-Vous pouvez ajouter autant de style que vous voulez dans `v4Style`.
+- `minGapBetweenSub` est le temps (en `ms`) d'affichage minimum entre chaque sous-titre.
+- Vous pouvez ajouter autant de style que vous voulez dans `v4Style`.
 
 ## Astuce
 
@@ -120,3 +122,9 @@ fichier ass
 
 Dialogue: 0,0:00:00.00,0:00:02.56,Style,actor,0,0,0,,Texte sous-titre
 ```
+
+## Release Notes
+
+### Dernière version
+
+- Ajout de `minGapBetweenSub` dans `optionsDialogues`
