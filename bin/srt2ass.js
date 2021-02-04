@@ -9,7 +9,7 @@ const optionator = require("../help/options");
 const mesFunctions = require("../src/functions");
 const styles = mesFunctions.options().v4Styles;
 const minGapBetweenSub = mesFunctions.options().optionsDialogues.minGapBetweenSub;
-const defaultStyle=mesFunctions.options().optionsDialogues.defaultStyle
+const defaultStyle = mesFunctions.options().optionsDialogues.defaultStyle;
 
 let options;
 try {
@@ -37,8 +37,8 @@ if (options.version) {
 if (options.dir) {
   let fichierSrt = [];
   let chemin = process.cwd();
-  fs.readdir(chemin, function(err, items) {
-    items.forEach(f => {
+  fs.readdir(chemin, function (err, items) {
+    items.forEach((f) => {
       path.extname(f) === ".srt" && fichierSrt.push(path.join(chemin, f));
     });
     if (fichierSrt.length === 0) {
@@ -61,18 +61,18 @@ if (options.dir) {
     return;
   }
 }
-
+let erreurs = [];
 
 function writeFiles(files, file_out) {
-  files.forEach(f => {
+  files.forEach((f) => {
     // ajoute les lignes dans txt_tab
-    let endBefore=0;
+    let erreursLigne = [];
+
+    let endBefore = 0;
     let txt_tab = [];
     let out_file = (file_out && file_out) || f.split(".")[0] + ".ass";
     txt_tab.push("[Script Info]");
-    for (let [key, value] of Object.entries(
-      mesFunctions.options().scriptInfo
-    )) {
+    for (let [key, value] of Object.entries(mesFunctions.options().scriptInfo)) {
       txt_tab.push(key + ": " + value);
     }
     txt_tab.push("");
@@ -81,7 +81,7 @@ function writeFiles(files, file_out) {
       "Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding"
     );
 
-    Object.values(styles).forEach(style => {
+    Object.values(styles).forEach((style) => {
       txt_tab.push(mesFunctions.writeLigne(style));
     });
     txt_tab.push("");
@@ -92,19 +92,24 @@ function writeFiles(files, file_out) {
 
     const data = fs.readFileSync(f, "utf8");
     const parse = subtitle.parse(data);
-    Object.values(parse).forEach(s => {
-      let actor=["",""];
-       if (s.start - endBefore <= minGapBetweenSub) {
-         s.start = endBefore + minGapBetweenSub;
-       }
+    Object.values(parse).forEach((s, i) => {
+    
+      let actor = ["", ""];
+      if (s.start - endBefore <= minGapBetweenSub) {
+        s.start = endBefore + minGapBetweenSub;
+      }
       let start = mesFunctions.timeASS(subtitle.toVttTime(s.start));
       let end = mesFunctions.timeASS(subtitle.toVttTime(s.end));
-      let text = s.text.replace(/<br \/>|\n/, "\\N");
-      if(text.trim().substring(0,1)==='['){
-         actor = text.match(/\[([^\]]+)\]/);
-         text=text.replace(actor[0],"");
+      if (!s.text) {
+        s.text = "";
+        erreursLigne.push(i + 1);
       }
-     
+      let text = s.text.replace(/<br \/>|\n/, "\\N");
+      if (text.trim().substring(0, 1) === "[") {
+        actor = text.match(/\[([^\]]+)\]/);
+        text = text.replace(actor[0], "");
+      }
+
       txt_tab.push(
         "Dialogue: 0," +
           start +
@@ -117,10 +122,18 @@ function writeFiles(files, file_out) {
           ",0,0,0,," +
           text
       );
-      endBefore=s.end;
+      endBefore = s.end;
     });
-
+    if (erreursLigne.length!==0) {
+      erreurs.push({
+        Fichier: f.split("\\").pop(),
+        "Erreur lignes vides": erreursLigne.join(", "),
+      });
+    }
     fs.writeFileSync(out_file, txt_tab.join("\n"));
     monLog.log("srt2ass", out_file, "généré");
   });
+  if (erreurs.length!==0) {
+    console.table(erreurs);
+  }
 }
