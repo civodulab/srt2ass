@@ -1,6 +1,6 @@
 {
   "name": "srt2ass",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Transforme SRT en ASS",
   "bin": {
     "srt2ass": "bin/srt2ass.js"
