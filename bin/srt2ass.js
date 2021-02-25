@@ -61,9 +61,9 @@ if (options.dir) {
     return;
   }
 }
-let erreurs = [];
 
 function writeFiles(files, file_out) {
+let erreurs = [];
   files.forEach((f) => {
     // ajoute les lignes dans txt_tab
     let erreursLigne = [];
@@ -133,7 +133,7 @@ function writeFiles(files, file_out) {
     fs.writeFileSync(out_file, txt_tab.join("\n"));
     monLog.log("srt2ass", out_file, "généré");
   });
-  if (erreurs.length!==0) {
+  if (erreurs&&erreurs.length !== 0) {
     console.table(erreurs);
   }
 }
