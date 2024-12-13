@@ -70,7 +70,7 @@ let erreurs = [];
 
     let endBefore = 0;
     let txt_tab = [];
-    let out_file = (file_out && file_out) || f.split(".")[0] + ".ass";
+    let out_file = (file_out && file_out) || path.join(path.dirname(f),path.basename(f).split(".")[0] + ".ass");
     txt_tab.push("[Script Info]");
     for (let [key, value] of Object.entries(mesFunctions.options().scriptInfo)) {
       txt_tab.push(key + ": " + value);
